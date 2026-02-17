@@ -1,0 +1,83 @@
+<%- include('partials/head') %>
+<body class="login-page">
+  
+  <!-- Background Energy Grid -->
+  <div class="energy-grid"></div>
+  
+  <!-- Main Container -->
+  <div class="omnitrix-container">
+    
+    <!-- Omnitrix Dial (Login Form) -->
+    <div class="omnitrix-dial">
+      
+      <!-- Center Glow -->
+      <div class="omnitrix-glow"></div>
+      
+      <!-- Form Panel -->
+      <div class="form-panel">
+        <h1 class="hero-title">IT'S HERO TIME</h1>
+        <p class="subtitle">Transform & Login</p>
+        
+        <% if (error) { %>
+          <div class="error-burst">
+            <span>⚠️ <%= error %></span>
+          </div>
+        <% } %>
+        
+        <form action="/login" method="POST" class="transform-form">
+          
+          <!-- Username/Email Field -->
+          <div class="hex-input-group">
+            <label for="username" class="input-label">USERNAME / EMAIL</label>
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              class="hex-input"
+              placeholder="Enter your identity..."
+              required
+            >
+          </div>
+          
+          <!-- Password Field -->
+          <div class="hex-input-group">
+            <label for="password" class="input-label">PASSWORD</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="hex-input"
+              placeholder="Enter secret code..."
+              required
+            >
+          </div>
+          
+          <!-- Submit Button -->
+          <button type="submit" class="transform-btn">
+            <span class="btn-text">TRANSFORM TO LOGIN</span>
+            <span class="btn-glow"></span>
+          </button>
+          
+        </form>
+        
+        <!-- Signup Link -->
+        <div class="alt-action">
+          <p>New hero? <a href="/signup" class="hero-link">Join the Team</a></p>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+    <!-- Decorative Elements -->
+    <div class="energy-burst burst-1"></div>
+    <div class="energy-burst burst-2"></div>
+    <div class="energy-burst burst-3"></div>
+    
+  </div>
+  
+  <!-- Client-side JS -->
+  <script src="/js/ben10-app.js"></script>
+  
+</body>
+</html>

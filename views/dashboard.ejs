@@ -1,0 +1,98 @@
+<%- include('partials/head') %>
+<body class="dashboard-page">
+  
+  <!-- Background Energy Grid -->
+  <div class="energy-grid active"></div>
+  
+  <!-- Dashboard Container -->
+  <div class="dashboard-container">
+    
+    <!-- Hero Header -->
+    <div class="hero-header">
+      <h1 class="dashboard-title">HERO COMMAND CENTER</h1>
+      <div class="omnitrix-indicator">
+        <div class="indicator-pulse"></div>
+        <span>ACTIVE</span>
+      </div>
+    </div>
+    
+    <!-- Hero Profile Card -->
+    <div class="hero-card">
+      <div class="card-glow"></div>
+      <div class="hero-avatar">
+        <div class="avatar-ring"></div>
+        <div class="avatar-inner">
+          <%= username.charAt(0).toUpperCase() %>
+        </div>
+      </div>
+      <div class="hero-info">
+        <h2 class="hero-name"><%= username %></h2>
+        <p class="hero-email"><%= email %></p>
+        <div class="hero-status">
+          <span class="status-badge">TRANSFORMATION READY</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Action Zones -->
+    <div class="action-zones">
+      
+      <!-- Zone 1 -->
+      <div class="action-zone zone-1">
+        <div class="zone-icon">🔥</div>
+        <h3 class="zone-title">POWER LEVEL</h3>
+        <p class="zone-value">MAXIMUM</p>
+      </div>
+      
+      <!-- Zone 2 -->
+      <div class="action-zone zone-2">
+        <div class="zone-icon">⚡</div>
+        <h3 class="zone-title">ALIENS UNLOCKED</h3>
+        <p class="zone-value">10 / 10</p>
+      </div>
+      
+      <!-- Zone 3 -->
+      <div class="action-zone zone-3">
+        <div class="zone-icon">🛡️</div>
+        <h3 class="zone-title">MISSIONS</h3>
+        <p class="zone-value">READY</p>
+      </div>
+      
+    </div>
+    
+    <!-- Transformation Hub (Navigation) -->
+    <div class="transformation-hub">
+      <div class="hub-title">TRANSFORMATION HUB</div>
+      <div class="hub-options">
+        <div class="hub-option">
+          <div class="option-icon">👤</div>
+          <span>Profile</span>
+        </div>
+        <div class="hub-option">
+          <div class="option-icon">⚙️</div>
+          <span>Settings</span>
+        </div>
+        <div class="hub-option">
+          <div class="option-icon">🎮</div>
+          <span>Missions</span>
+        </div>
+        <a href="/logout" class="hub-option logout-option">
+          <div class="option-icon">🔓</div>
+          <span>Logout</span>
+        </a>
+      </div>
+    </div>
+    
+    <!-- Energy Particles -->
+    <div class="particle particle-1"></div>
+    <div class="particle particle-2"></div>
+    <div class="particle particle-3"></div>
+    <div class="particle particle-4"></div>
+    
+  </div>
+  
+  <!-- Client-side JS -->
+  <script src="/js/ben10-app.js"></script>
+  
+</body>
+</html>

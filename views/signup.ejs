@@ -1,0 +1,119 @@
+<%- include('partials/head') %>
+<body class="signup-page">
+  
+  <!-- Background Energy Grid -->
+  <div class="energy-grid"></div>
+  
+  <!-- Comic Panel Container -->
+  <div class="comic-container">
+    
+    <!-- Left Panel - Info -->
+    <div class="info-panel">
+      <h2 class="panel-title">JOIN THE HEROES</h2>
+      <div class="dna-strand">
+        <div class="dna-point"></div>
+        <div class="dna-point"></div>
+        <div class="dna-point"></div>
+      </div>
+      <p class="panel-text">Unlock your alien powers and join Ben's team!</p>
+    </div>
+    
+    <!-- Right Panel - Signup Form -->
+    <div class="signup-panel">
+      
+      <div class="form-panel signup-form-panel">
+        <h1 class="hero-title">TRANSFORMATION SEQUENCE</h1>
+        <p class="subtitle">Create Your Hero Profile</p>
+        
+        <% if (error) { %>
+          <div class="error-burst">
+            <span>⚠️ <%= error %></span>
+          </div>
+        <% } %>
+        
+        <form action="/signup" method="POST" class="transform-form">
+          
+          <!-- Username Field -->
+          <div class="hex-input-group">
+            <label for="username" class="input-label">HERO NAME</label>
+            <input 
+              type="text" 
+              id="username" 
+              name="username" 
+              class="hex-input"
+              placeholder="Choose your hero name..."
+              value="<%= typeof formData !== 'undefined' ? formData.username || '' : '' %>"
+              required
+            >
+          </div>
+          
+          <!-- Email Field -->
+          <div class="hex-input-group">
+            <label for="email" class="input-label">EMAIL</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="hex-input"
+              placeholder="your.email@heroes.com"
+              value="<%= typeof formData !== 'undefined' ? formData.email || '' : '' %>"
+              required
+            >
+          </div>
+          
+          <!-- Password Field -->
+          <div class="hex-input-group">
+            <label for="password" class="input-label">PASSWORD</label>
+            <input 
+              type="password" 
+              id="password" 
+              name="password" 
+              class="hex-input"
+              placeholder="Min 8 chars, 1 uppercase, 1 number"
+              required
+            >
+            <small class="input-hint">Min 8 characters, 1 uppercase, 1 number</small>
+          </div>
+          
+          <!-- Confirm Password Field -->
+          <div class="hex-input-group">
+            <label for="confirmPassword" class="input-label">CONFIRM PASSWORD</label>
+            <input 
+              type="password" 
+              id="confirmPassword" 
+              name="confirmPassword" 
+              class="hex-input"
+              placeholder="Re-enter your password"
+              required
+            >
+          </div>
+          
+          <!-- Submit Button -->
+          <button type="submit" class="transform-btn signup-btn">
+            <span class="btn-text">ACTIVATE OMNITRIX</span>
+            <span class="btn-glow"></span>
+          </button>
+          
+        </form>
+        
+        <!-- Login Link -->
+        <div class="alt-action">
+          <p>Already a hero? <a href="/login" class="hero-link">Login Here</a></p>
+        </div>
+        
+      </div>
+      
+    </div>
+    
+    <!-- Decorative Hexagons -->
+    <div class="floating-hex hex-1"></div>
+    <div class="floating-hex hex-2"></div>
+    <div class="floating-hex hex-3"></div>
+    
+  </div>
+  
+  <!-- Client-side JS -->
+  <script src="/js/ben10-app.js"></script>
+  
+</body>
+</html>

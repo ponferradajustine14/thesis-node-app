@@ -1,0 +1,843 @@
+/* ============================================================
+   BEN 10 INSPIRED AUTHENTICATION WEBSITE
+   Comic-Style Layout with Omnitrix Energy Effects
+   ============================================================ */
+
+/* ============================================================
+   CSS VARIABLES - COLOR PALETTE
+   ============================================================ */
+:root {
+  --omnitrix-green: #00FF41;
+  --cosmic-blue: #0A2463;
+  --plasma-orange: #FF6B35;
+  --alien-metal: #8B92A8;
+  --shadow-black: #0D0D0D;
+  --highlight-cyan: #00F5FF;
+  --dark-bg: #0f0f1e;
+  --energy-glow: rgba(0, 255, 65, 0.3);
+}
+
+/* ============================================================
+   RESET & BASE STYLES
+   ============================================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Bungee', cursive;
+  background: var(--dark-bg);
+  color: #fff;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+h1, h2, h3 {
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+/* ============================================================
+   ENERGY GRID BACKGROUND
+   ============================================================ */
+.energy-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(90deg, transparent 49%, var(--energy-glow) 50%, transparent 51%),
+    linear-gradient(0deg, transparent 49%, var(--energy-glow) 50%, transparent 51%);
+  background-size: 50px 50px;
+  opacity: 0.1;
+  z-index: -1;
+  animation: gridPulse 4s ease-in-out infinite;
+}
+
+.energy-grid.active {
+  opacity: 0.2;
+  animation: gridPulseActive 2s ease-in-out infinite;
+}
+
+@keyframes gridPulse {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.15; }
+}
+
+@keyframes gridPulseActive {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.25; }
+}
+
+/* ============================================================
+   LOGIN PAGE - OMNITRIX DIAL LAYOUT
+   ============================================================ */
+.login-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: radial-gradient(circle at 50% 50%, var(--cosmic-blue), var(--shadow-black));
+}
+
+.omnitrix-container {
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+}
+
+.omnitrix-dial {
+  position: relative;
+  background: linear-gradient(135deg, rgba(10, 36, 99, 0.9), rgba(13, 13, 13, 0.95));
+  border: 4px solid var(--omnitrix-green);
+  border-radius: 50%;
+  padding: 60px 40px;
+  box-shadow: 
+    0 0 30px var(--omnitrix-green),
+    inset 0 0 30px rgba(0, 255, 65, 0.1);
+  animation: dialRotate 20s linear infinite;
+}
+
+@keyframes dialRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.omnitrix-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, var(--omnitrix-green), transparent);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: glowPulse 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes glowPulse {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.3; }
+  50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.5; }
+}
+
+.form-panel {
+  position: relative;
+  z-index: 10;
+  animation: dialRotate 20s linear infinite reverse;
+}
+
+/* ============================================================
+   TYPOGRAPHY - HERO TITLES
+   ============================================================ */
+.hero-title {
+  font-size: 2rem;
+  color: var(--omnitrix-green);
+  text-align: center;
+  margin-bottom: 10px;
+  text-shadow: 0 0 20px var(--omnitrix-green);
+  letter-spacing: 3px;
+}
+
+.subtitle {
+  text-align: center;
+  color: var(--alien-metal);
+  font-size: 0.9rem;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ============================================================
+   ERROR MESSAGES
+   ============================================================ */
+.error-burst {
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(255, 0, 0, 0.2));
+  border: 2px solid var(--plasma-orange);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: var(--plasma-orange);
+  font-size: 0.85rem;
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
+  animation: errorShake 0.5s ease;
+}
+
+@keyframes errorShake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* ============================================================
+   HEXAGONAL INPUT FIELDS
+   ============================================================ */
+.hex-input-group {
+  margin-bottom: 20px;
+}
+
+.input-label {
+  display: block;
+  color: var(--omnitrix-green);
+  font-size: 0.75rem;
+  margin-bottom: 8px;
+  letter-spacing: 2px;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.hex-input {
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(13, 13, 13, 0.8);
+  border: 2px solid var(--alien-metal);
+  border-radius: 0;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: 'Bungee', cursive;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.hex-input:focus {
+  border-color: var(--omnitrix-green);
+  box-shadow: 0 0 15px var(--energy-glow);
+  background: rgba(0, 255, 65, 0.05);
+}
+
+.hex-input::placeholder {
+  color: rgba(139, 146, 168, 0.5);
+  font-size: 0.85rem;
+}
+
+.input-hint {
+  display: block;
+  color: var(--alien-metal);
+  font-size: 0.7rem;
+  margin-top: 5px;
+  font-family: sans-serif;
+}
+
+/* ============================================================
+   TRANSFORM BUTTON
+   ============================================================ */
+.transform-btn {
+  position: relative;
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, var(--omnitrix-green), var(--highlight-cyan));
+  border: none;
+  clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+  color: var(--shadow-black);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.transform-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px var(--omnitrix-green);
+}
+
+.transform-btn:active {
+  transform: scale(0.98);
+}
+
+.btn-text {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-glow {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  animation: btnGlowSlide 3s ease-in-out infinite;
+}
+
+@keyframes btnGlowSlide {
+  0% { left: -100%; }
+  50%, 100% { left: 100%; }
+}
+
+/* ============================================================
+   ALTERNATIVE ACTION LINKS
+   ============================================================ */
+.alt-action {
+  text-align: center;
+  margin-top: 25px;
+  font-size: 0.85rem;
+  color: var(--alien-metal);
+}
+
+.hero-link {
+  color: var(--omnitrix-green);
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.hero-link:hover {
+  color: var(--highlight-cyan);
+  text-shadow: 0 0 10px var(--highlight-cyan);
+}
+
+/* ============================================================
+   ENERGY BURST DECORATIONS
+   ============================================================ */
+.energy-burst {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--omnitrix-green), transparent);
+  pointer-events: none;
+  animation: burstFloat 6s ease-in-out infinite;
+}
+
+.burst-1 {
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  right: -50px;
+  opacity: 0.2;
+}
+
+.burst-2 {
+  width: 150px;
+  height: 150px;
+  bottom: -75px;
+  left: -75px;
+  opacity: 0.15;
+  animation-delay: 2s;
+}
+
+.burst-3 {
+  width: 80px;
+  height: 80px;
+  top: 50%;
+  right: -40px;
+  opacity: 0.25;
+  animation-delay: 4s;
+}
+
+@keyframes burstFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(10px, -10px) scale(1.1); }
+}
+
+/* ============================================================
+   SIGNUP PAGE - COMIC PANEL LAYOUT
+   ============================================================ */
+.signup-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background: radial-gradient(circle at 30% 50%, var(--cosmic-blue), var(--shadow-black));
+}
+
+.comic-container {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+/* Info Panel */
+.info-panel {
+  flex: 0 0 280px;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(10, 36, 99, 0.3));
+  border: 3px solid var(--plasma-orange);
+  padding: 40px 30px;
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%);
+  box-shadow: 0 0 20px rgba(255, 107, 53, 0.3);
+}
+
+.panel-title {
+  font-size: 1.5rem;
+  color: var(--plasma-orange);
+  margin-bottom: 20px;
+  text-shadow: 0 0 15px var(--plasma-orange);
+}
+
+.dna-strand {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: 30px 0;
+}
+
+.dna-point {
+  width: 20px;
+  height: 20px;
+  background: var(--omnitrix-green);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--omnitrix-green);
+  animation: dnaFloat 2s ease-in-out infinite;
+}
+
+.dna-point:nth-child(2) {
+  margin-left: 40px;
+  animation-delay: 0.5s;
+}
+
+.dna-point:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes dnaFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.panel-text {
+  color: var(--alien-metal);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Signup Form Panel */
+.signup-panel {
+  flex: 1;
+}
+
+.signup-form-panel {
+  background: linear-gradient(135deg, rgba(10, 36, 99, 0.9), rgba(13, 13, 13, 0.95));
+  border: 4px solid var(--omnitrix-green);
+  padding: 40px;
+  clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+  box-shadow: 0 0 30px var(--energy-glow);
+}
+
+/* Floating Hexagons */
+.floating-hex {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  background: var(--omnitrix-green);
+  opacity: 0.1;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  animation: hexFloat 8s ease-in-out infinite;
+}
+
+.hex-1 {
+  top: 10%;
+  right: 10%;
+}
+
+.hex-2 {
+  bottom: 20%;
+  left: 5%;
+  animation-delay: 2s;
+}
+
+.hex-3 {
+  top: 60%;
+  right: 5%;
+  width: 40px;
+  height: 40px;
+  animation-delay: 4s;
+}
+
+@keyframes hexFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+/* ============================================================
+   DASHBOARD PAGE
+   ============================================================ */
+.dashboard-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+  background: radial-gradient(circle at 50% 30%, var(--cosmic-blue), var(--shadow-black));
+}
+
+.dashboard-container {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Hero Header */
+.hero-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+  padding: 20px 30px;
+  background: linear-gradient(90deg, rgba(0, 255, 65, 0.1), transparent);
+  border-left: 5px solid var(--omnitrix-green);
+  clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 0 100%);
+}
+
+.dashboard-title {
+  font-size: 2rem;
+  color: var(--omnitrix-green);
+  text-shadow: 0 0 20px var(--omnitrix-green);
+  letter-spacing: 3px;
+}
+
+.omnitrix-indicator {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--highlight-cyan);
+  font-size: 0.9rem;
+  font-family: 'Orbitron', sans-serif;
+}
+
+.indicator-pulse {
+  width: 12px;
+  height: 12px;
+  background: var(--omnitrix-green);
+  border-radius: 50%;
+  box-shadow: 0 0 15px var(--omnitrix-green);
+  animation: indicatorPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes indicatorPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+/* Hero Profile Card */
+.hero-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(10, 36, 99, 0.8), rgba(13, 13, 13, 0.9));
+  border: 4px solid var(--omnitrix-green);
+  padding: 40px;
+  margin-bottom: 40px;
+  clip-path: polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px);
+  box-shadow: 0 0 30px var(--energy-glow);
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.card-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at 20% 50%, var(--energy-glow), transparent);
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+.hero-avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.avatar-ring {
+  width: 120px;
+  height: 120px;
+  border: 4px solid var(--omnitrix-green);
+  border-radius: 50%;
+  animation: avatarRotate 10s linear infinite;
+  box-shadow: 0 0 20px var(--omnitrix-green);
+}
+
+@keyframes avatarRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.avatar-inner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  background: linear-gradient(135deg, var(--omnitrix-green), var(--highlight-cyan));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-family: 'Orbitron', sans-serif;
+  color: var(--shadow-black);
+  font-weight: 900;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+.hero-info {
+  flex: 1;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-name {
+  font-size: 2.5rem;
+  color: var(--omnitrix-green);
+  margin-bottom: 10px;
+  text-shadow: 0 0 15px var(--omnitrix-green);
+}
+
+.hero-email {
+  font-size: 1rem;
+  color: var(--alien-metal);
+  margin-bottom: 15px;
+}
+
+.hero-status {
+  display: inline-block;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  background: linear-gradient(90deg, var(--plasma-orange), var(--omnitrix-green));
+  color: var(--shadow-black);
+  font-size: 0.75rem;
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%);
+  box-shadow: 0 0 15px rgba(255, 107, 53, 0.5);
+}
+
+/* Action Zones */
+.action-zones {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 30px;
+  margin-bottom: 40px;
+}
+
+.action-zone {
+  background: linear-gradient(135deg, rgba(0, 255, 65, 0.1), rgba(10, 36, 99, 0.2));
+  border: 3px solid var(--omnitrix-green);
+  padding: 30px;
+  text-align: center;
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.action-zone:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px var(--energy-glow);
+  background: linear-gradient(135deg, rgba(0, 255, 65, 0.2), rgba(10, 36, 99, 0.3));
+}
+
+.zone-icon {
+  font-size: 3rem;
+  margin-bottom: 15px;
+  animation: iconBounce 2s ease-in-out infinite;
+}
+
+@keyframes iconBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.zone-title {
+  font-size: 1rem;
+  color: var(--omnitrix-green);
+  margin-bottom: 10px;
+  letter-spacing: 2px;
+}
+
+.zone-value {
+  font-size: 1.5rem;
+  color: var(--highlight-cyan);
+  font-family: 'Orbitron', sans-serif;
+  font-weight: 900;
+}
+
+/* Transformation Hub */
+.transformation-hub {
+  background: linear-gradient(135deg, rgba(10, 36, 99, 0.8), rgba(13, 13, 13, 0.9));
+  border: 4px solid var(--plasma-orange);
+  padding: 30px;
+  clip-path: polygon(30px 0, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0 30px);
+  box-shadow: 0 0 25px rgba(255, 107, 53, 0.3);
+}
+
+.hub-title {
+  font-size: 1.5rem;
+  color: var(--plasma-orange);
+  text-align: center;
+  margin-bottom: 25px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 3px;
+  text-shadow: 0 0 15px var(--plasma-orange);
+}
+
+.hub-options {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.hub-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 20px;
+  background: rgba(0, 255, 65, 0.05);
+  border: 2px solid var(--alien-metal);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--alien-metal);
+  min-width: 100px;
+}
+
+.hub-option:hover {
+  border-color: var(--omnitrix-green);
+  background: rgba(0, 255, 65, 0.1);
+  transform: translateY(-5px);
+  box-shadow: 0 5px 20px var(--energy-glow);
+}
+
+.option-icon {
+  font-size: 2rem;
+}
+
+.logout-option {
+  border-color: var(--plasma-orange);
+}
+
+.logout-option:hover {
+  border-color: var(--plasma-orange);
+  background: rgba(255, 107, 53, 0.1);
+  box-shadow: 0 5px 20px rgba(255, 107, 53, 0.3);
+}
+
+/* Energy Particles */
+.particle {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background: var(--omnitrix-green);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: particleFloat 6s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--omnitrix-green);
+}
+
+.particle-1 {
+  top: 20%;
+  left: 10%;
+}
+
+.particle-2 {
+  top: 60%;
+  right: 15%;
+  animation-delay: 1.5s;
+}
+
+.particle-3 {
+  bottom: 30%;
+  left: 20%;
+  animation-delay: 3s;
+}
+
+.particle-4 {
+  top: 40%;
+  right: 25%;
+  animation-delay: 4.5s;
+}
+
+@keyframes particleFloat {
+  0%, 100% { transform: translate(0, 0); opacity: 0.6; }
+  25% { transform: translate(20px, -20px); opacity: 0.8; }
+  50% { transform: translate(40px, 10px); opacity: 0.4; }
+  75% { transform: translate(10px, 30px); opacity: 0.9; }
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 1.5rem;
+  }
+
+  .dashboard-title {
+    font-size: 1.5rem;
+  }
+
+  .comic-container {
+    flex-direction: column;
+  }
+
+  .info-panel {
+    flex: 1;
+    width: 100%;
+  }
+
+  .hero-card {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-name {
+    font-size: 2rem;
+  }
+
+  .action-zones {
+    grid-template-columns: 1fr;
+  }
+
+  .hub-options {
+    flex-direction: column;
+  }
+
+  .hub-option {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+  }
+
+  .omnitrix-dial {
+    padding: 40px 25px;
+  }
+
+  .signup-form-panel {
+    padding: 30px 20px;
+  }
+
+  .hex-input {
+    font-size: 0.85rem;
+  }
+
+  .transform-btn {
+    font-size: 0.9rem;
+    padding: 15px;
+  }
+}
